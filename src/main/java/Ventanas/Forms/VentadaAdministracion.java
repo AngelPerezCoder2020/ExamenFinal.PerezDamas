@@ -1,7 +1,7 @@
 package Ventanas.Forms;
 
 public class VentadaAdministracion extends javax.swing.JFrame {
-
+    
     public VentadaAdministracion() {
         initComponents();
     }
@@ -22,7 +22,7 @@ public class VentadaAdministracion extends javax.swing.JFrame {
         descripcionpizzatxt = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        listadopizzas = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +63,7 @@ public class VentadaAdministracion extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton1.setText("CREAR");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        listadopizzas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -74,7 +74,8 @@ public class VentadaAdministracion extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        listadopizzas.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(listadopizzas);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton2.setText("ATRÁS");
@@ -179,7 +180,7 @@ public class VentadaAdministracion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    public javax.swing.JTable listadopizzas;
     private javax.swing.JTextField nombrepizzatxt;
     private javax.swing.JTextField preciopizzatxt;
     // End of variables declaration//GEN-END:variables

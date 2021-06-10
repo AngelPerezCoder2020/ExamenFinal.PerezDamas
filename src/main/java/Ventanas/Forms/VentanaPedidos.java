@@ -23,7 +23,7 @@ public class VentanaPedidos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        listapedidos = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -68,7 +68,7 @@ public class VentanaPedidos extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel5.setText("PEDIDOS:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        listapedidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -79,7 +79,7 @@ public class VentanaPedidos extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(listapedidos);
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton2.setText("ATRÁS");
@@ -185,8 +185,8 @@ public class VentanaPedidos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JTable listapedidos;
     private javax.swing.JComboBox<String> pizzaselectedcobox;
     private javax.swing.JLabel preciolabel;
     // End of variables declaration//GEN-END:variables
