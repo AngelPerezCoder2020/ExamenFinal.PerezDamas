@@ -27,12 +27,12 @@ public class Funciones {
     }
     public void mostrar(javax.swing.JTable t, javax.swing.table.DefaultTableModel m, ArrayList<pizza> y){
         t.setModel(m);
+        String[] agg = new String[3];
         if(y.isEmpty()){
             limpiartabla(m, t);
             JOptionPane.showMessageDialog(null, "EL listado de pizzas de la Sucursal Seleccionada esta Vacía");
         }else{  
             limpiartabla(m, t);
-            String[] agg = new String[3];
             for(int x=0;x<y.size();x++){
                 agg[0]=y.get(x).getNom();
                 agg[1]=y.get(x).getDesc();

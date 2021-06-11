@@ -7,10 +7,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class VentadaAdministracion extends javax.swing.JFrame {
         Funciones funciones = new Funciones();
-        pizza picsa = new pizza();
         String[] titulos1 = {"NOMBRE", "DESCRIPCIÓN", "PRECIO"};
         DefaultTableModel mod = new DefaultTableModel(null, titulos1);
-        
+    
+        public void enviar(pizza picsa){
+            if(picsa.getNom().equals("")||picsa.getPre().equals("")||picsa.getDesc().equals("")){
+                JOptionPane.showMessageDialog(null, "Por Favor Asegurarse de llenar todos los datos requeridos ;)");
+            }else{
+                funciones.crear(picsa,listadopizzas,mod);                  
+            }
+        }
     public VentadaAdministracion() {
         initComponents();
     }
@@ -204,23 +210,21 @@ public class VentadaAdministracion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        pizza picsa = new pizza();
         picsa.setNom(nombrepizzatxt.getText());
         picsa.setPre(preciopizzatxt.getText());
         picsa.setDesc(descripcionpizzatxt.getText());
         picsa.setSucur(sucursalbox.getSelectedItem().toString());
-        nombrepizzatxt.setText("");
-        preciopizzatxt.setText("");
-        descripcionpizzatxt.setText("");
         if(listadopizzas.getRowCount()==0){
             String[] j = {"","",""};
             mod.addRow(j);
+            enviar(picsa);
         }else{
-            if(picsa.getNom().equals("")||picsa.getPre().equals("")||picsa.getDesc().equals("")){
-                JOptionPane.showMessageDialog(null, "Por Favor Asegurarse de llenar todos los datos requeridos ;)");
-            }else{
-                funciones.crear(picsa,listadopizzas,mod);                  
-            }
+            enviar(picsa);
         }
+        nombrepizzatxt.setText("");
+        preciopizzatxt.setText("");
+        descripcionpizzatxt.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void sucursalboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sucursalboxItemStateChanged
