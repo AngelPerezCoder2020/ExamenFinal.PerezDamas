@@ -6,14 +6,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public static VentadaAdministracion admin = new VentadaAdministracion();
     VentanaPedidos ventanapedidos = new VentanaPedidos();
     public static VentanaPrincipal ventanaprincipal = new VentanaPrincipal();
-    String[] titulos1 = {"NOMBRE", "DESCRIPCIÓN", "PRECIO"};
-    String[] titulos2 = {"No.", "Pizza", "Descripción", "Sucursal"};
-    DefaultTableModel mod = new DefaultTableModel(null, titulos1);
-    DefaultTableModel mod2 = new DefaultTableModel(null, titulos2);
     
     public VentanaPrincipal() {
-        this.admin.listadopizzas.setModel(this.mod);
-        this.ventanapedidos.listapedidos.setModel(mod2);
         initComponents();
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

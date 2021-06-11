@@ -1,7 +1,11 @@
 package Ventanas.Forms;
 
-public class VentanaPedidos extends javax.swing.JFrame {
+import javax.swing.table.DefaultTableModel;
 
+public class VentanaPedidos extends javax.swing.JFrame {
+    String[] titulos2 = {"No.", "Pizza", "Descripción", "Sucursal"};
+    DefaultTableModel mod2 = new DefaultTableModel(null, titulos2);
+    
     public VentanaPedidos() {
         initComponents();
     }

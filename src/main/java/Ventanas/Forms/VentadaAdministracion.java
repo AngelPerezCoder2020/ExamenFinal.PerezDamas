@@ -1,17 +1,25 @@
 package Ventanas.Forms;
+import Funcionalidades.*;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class VentadaAdministracion extends javax.swing.JFrame {
-    
+        Funciones funciones = new Funciones();
+        pizza picsa = new pizza();
+        String[] titulos1 = {"NOMBRE", "DESCRIPCIÓN", "PRECIO"};
+        DefaultTableModel mod = new DefaultTableModel(null, titulos1);
+        
     public VentadaAdministracion() {
         initComponents();
     }
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        sucursalbox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -35,8 +43,31 @@ public class VentadaAdministracion extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel2.setText("SUCURSAL:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GUATEMALA", "EL PROGRESO", "JALAPA" }));
-        jComboBox1.setToolTipText("");
+        sucursalbox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GUATEMALA", "EL PROGRESO", "JALAPA" }));
+        sucursalbox.setToolTipText("");
+        sucursalbox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                sucursalboxItemStateChanged(evt);
+            }
+        });
+        sucursalbox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sucursalboxMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                sucursalboxMouseReleased(evt);
+            }
+        });
+        sucursalbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sucursalboxActionPerformed(evt);
+            }
+        });
+        sucursalbox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sucursalboxKeyPressed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setText("DESCRIPCIÓN:");
@@ -62,6 +93,11 @@ public class VentadaAdministracion extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton1.setText("CREAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         listadopizzas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -103,7 +139,7 @@ public class VentadaAdministracion extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(sucursalbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -134,7 +170,7 @@ public class VentadaAdministracion extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sucursalbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
                         .addComponent(jLabel4)
                         .addGap(41, 41, 41)
@@ -167,11 +203,68 @@ public class VentadaAdministracion extends javax.swing.JFrame {
         VentanaPrincipal.ventanaprincipal.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        picsa.setNom(nombrepizzatxt.getText());
+        picsa.setPre(preciopizzatxt.getText());
+        picsa.setDesc(descripcionpizzatxt.getText());
+        picsa.setSucur(sucursalbox.getSelectedItem().toString());
+        nombrepizzatxt.setText("");
+        preciopizzatxt.setText("");
+        descripcionpizzatxt.setText("");
+        if(listadopizzas.getRowCount()==0){
+            String[] j = {"","",""};
+            mod.addRow(j);
+        }else{
+            if(picsa.getNom().equals("")||picsa.getPre().equals("")||picsa.getDesc().equals("")){
+                JOptionPane.showMessageDialog(null, "Por Favor Asegurarse de llenar todos los datos requeridos ;)");
+            }else{
+                funciones.crear(picsa,listadopizzas,mod);                  
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void sucursalboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sucursalboxItemStateChanged
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            ArrayList<pizza> lista = null;
+            if(sucursalbox.getSelectedItem().equals("GUATEMALA")){
+                lista = funciones.sucurGuate;
+            }else{
+                if(sucursalbox.getSelectedItem().equals("EL PROGRESO")){
+                    lista = funciones.sucurElpro;
+                }else{
+                    if(sucursalbox.getSelectedItem().equals("JALAPA")){
+                        lista = funciones.sucurJala;
+                    }
+                }
+            }
+            if(listadopizzas.getRowCount()==0){
+                String[] j = {"","",""};
+                mod.addRow(j);
+            }
+            funciones.mostrar(listadopizzas,mod,lista);
+        }
+    }//GEN-LAST:event_sucursalboxItemStateChanged
+
+    private void sucursalboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sucursalboxActionPerformed
+
+    }//GEN-LAST:event_sucursalboxActionPerformed
+
+    private void sucursalboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sucursalboxKeyPressed
+
+    }//GEN-LAST:event_sucursalboxKeyPressed
+
+    private void sucursalboxMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucursalboxMouseReleased
+
+    }//GEN-LAST:event_sucursalboxMouseReleased
+
+    private void sucursalboxMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sucursalboxMouseExited
+
+    }//GEN-LAST:event_sucursalboxMouseExited
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea descripcionpizzatxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -183,5 +276,6 @@ public class VentadaAdministracion extends javax.swing.JFrame {
     public javax.swing.JTable listadopizzas;
     private javax.swing.JTextField nombrepizzatxt;
     private javax.swing.JTextField preciopizzatxt;
+    private javax.swing.JComboBox<String> sucursalbox;
     // End of variables declaration//GEN-END:variables
 }
