@@ -1,5 +1,10 @@
 package Ventanas.Forms;
 
+import Funcionalidades.Funciones;
+import Funcionalidades.pizza;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaPedidos extends javax.swing.JFrame {
@@ -9,7 +14,15 @@ public class VentanaPedidos extends javax.swing.JFrame {
     public VentanaPedidos() {
         initComponents();
     }
-
+    public void rellenar(ArrayList<pizza> L){
+        int tamaño = L.size();
+        String[] t = new String[tamaño];
+        for(int x=0;x<tamaño;x++){
+            t[x]=L.get(x).getNom();
+        }
+        DefaultComboBoxModel mo = new DefaultComboBoxModel(t);
+        pizzaselectedcobox.setModel(mo);
+    }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -53,6 +66,11 @@ public class VentanaPedidos extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GUATEMALA", "EL PROGRESO", "JALAPA" }));
         jComboBox1.setToolTipText("");
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel3.setText("PIZZA:");
@@ -176,6 +194,29 @@ public class VentanaPedidos extends javax.swing.JFrame {
         VentanaPrincipal.ventanaprincipal.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        ArrayList<pizza> items = new ArrayList<pizza>();
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(jComboBox1.getSelectedItem().equals("GUATEMALA")){
+                items = Funciones.sucurGuate;
+            }else{
+                if(jComboBox1.getSelectedItem().equals("EL PROGRESO")){
+                    items = Funciones.sucurElpro;
+                }else{
+                    if(jComboBox1.getSelectedItem().equals("JALAPA")){
+                        items = Funciones.sucurJala;
+                    }
+                }
+            }
+            if(pizzaselectedcobox.getItemCount()==0){
+                rellenar(items);
+            }else{
+                pizzaselectedcobox.removeAllItems();
+                rellenar(items);
+            }
+        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -191,7 +232,7 @@ public class VentanaPedidos extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     public javax.swing.JTable listapedidos;
-    private javax.swing.JComboBox<String> pizzaselectedcobox;
+    public javax.swing.JComboBox<String> pizzaselectedcobox;
     private javax.swing.JLabel preciolabel;
     // End of variables declaration//GEN-END:variables
 }

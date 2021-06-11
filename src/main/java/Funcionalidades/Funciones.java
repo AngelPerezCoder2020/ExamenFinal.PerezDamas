@@ -5,11 +5,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Funciones {
-    public ArrayList<pizza> sucurGuate = new ArrayList<pizza>();
-    public ArrayList<pizza> sucurElpro = new ArrayList<pizza>();
-    public ArrayList<pizza> sucurJala = new ArrayList<pizza>();
+    public static ArrayList<pizza> sucurGuate = new ArrayList<pizza>();
+    public static ArrayList<pizza> sucurElpro = new ArrayList<pizza>();
+    public static ArrayList<pizza> sucurJala = new ArrayList<pizza>();
     
-    public void crear(pizza x,javax.swing.JTable t, javax.swing.table.DefaultTableModel m){
+    public static void crear(pizza x,javax.swing.JTable t, javax.swing.table.DefaultTableModel m){
         if(x.getSucur().equals("GUATEMALA")){
             sucurGuate.add(x);
             mostrar(t,m,sucurGuate);
@@ -25,7 +25,7 @@ public class Funciones {
             }
         }
     }
-    public void mostrar(javax.swing.JTable t, javax.swing.table.DefaultTableModel m, ArrayList<pizza> y){
+    public static void mostrar(javax.swing.JTable t, javax.swing.table.DefaultTableModel m, ArrayList<pizza> y){
         t.setModel(m);
         String[] agg = new String[3];
         if(y.isEmpty()){
@@ -41,7 +41,7 @@ public class Funciones {
             }
         }
     }
-        public void limpiartabla(javax.swing.table.DefaultTableModel mo, javax.swing.JTable t){
+        public static void limpiartabla(javax.swing.table.DefaultTableModel mo, javax.swing.JTable t){
         int n = t.getRowCount();
         for(int x = n-1; x >= 0; x--){
             mo.removeRow(x);
