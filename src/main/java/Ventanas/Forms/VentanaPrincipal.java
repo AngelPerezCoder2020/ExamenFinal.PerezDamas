@@ -1,5 +1,7 @@
 package Ventanas.Forms;
 
+import java.awt.ItemSelectable;
+import java.awt.event.ItemEvent;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
@@ -76,6 +78,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void ordenbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenbuttonActionPerformed
         this.setVisible(false);
         ventanapedidos.setVisible(true);
+        ventanapedidos.entrada();
     }//GEN-LAST:event_ordenbuttonActionPerformed
 
     private void adminbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminbuttonActionPerformed

@@ -3,32 +3,56 @@ package Ventanas.Forms;
 import Funcionalidades.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
-import java.util.HashSet;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaPedidos extends javax.swing.JFrame {
+
     String[] titulos2 = {"No.", "Pizza", "Descripción", "Sucursal"};
     DefaultTableModel mod2 = new DefaultTableModel(null, titulos2);
-    int x=0;
+    ArrayList<pizza> items = new ArrayList<pizza>();
+    int x = 0;
     public VentanaPedidos() {
         initComponents();
     }
-    public void rellenar(ArrayList<pizza> L){
+    public void entrada(){
+        if (jComboBox1.getSelectedItem().equals("GUATEMALA")) {
+            items = Funciones.sucurGuate;
+        } else {
+            if (jComboBox1.getSelectedItem().equals("EL PROGRESO")) {
+                items = Funciones.sucurElpro;
+            } else {
+                if (jComboBox1.getSelectedItem().equals("JALAPA")) {
+                    items = Funciones.sucurJala;
+                }
+            }
+        }
+        if (pizzaselectedcobox.getItemCount() == 0) {
+            rellenar(items);
+        } else {
+            pizzaselectedcobox.removeAllItems();
+            rellenar(items);
+        }
+        descriocionarea.setText("");
+        preciolabel.setText("");
+        pizzaselectedcoboxItemStateChanged(1);
+    }
+    public void rellenar(ArrayList<pizza> L) {
         int tamaño = L.size();
         String[] t = new String[tamaño];
-        for(int x=0;x<tamaño;x++){
-            t[x]=L.get(x).getNom();
+        for (int x = 0; x < tamaño; x++) {
+            t[x] = L.get(x).getNom();
         }
         DefaultComboBoxModel mo = new DefaultComboBoxModel(t);
         pizzaselectedcobox.setModel(mo);
     }
-    public void enviar(pedido x){
-        if(x.getSucur().equals("")||x.getDescr().equals("")||x.getPizza().equals("")){
+
+    public void enviar(pedido x) {
+        if (x.getSucur().equals("") || x.getDescr().equals("") || x.getPizza().equals("")) {
             JOptionPane.showMessageDialog(null, "Por Favor Asegurarse de llenar todos los datos requeridos ;)");
-        }else{
-            Funciones.newPedido(x,listapedidos,mod2);                  
+        } else {
+            Funciones.newPedido(x, listapedidos, mod2);
         }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -85,7 +109,7 @@ public class VentanaPedidos extends javax.swing.JFrame {
 
         pizzaselectedcobox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                pizzaselectedcoboxItemStateChanged(evt);
+                pizzaselectedcoboxItemStateChanged(1);
             }
         });
 
@@ -213,32 +237,33 @@ public class VentanaPedidos extends javax.swing.JFrame {
         VentanaPrincipal.ventanaprincipal.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        ArrayList<pizza> items = new ArrayList<pizza>();
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-            if(jComboBox1.getSelectedItem().equals("GUATEMALA")){
+    public void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        if (evt.getStateChange() == ItemEvent.DESELECTED) {
+            if (jComboBox1.getSelectedItem().equals("GUATEMALA")) {
                 items = Funciones.sucurGuate;
-            }else{
-                if(jComboBox1.getSelectedItem().equals("EL PROGRESO")){
+            } else {
+                if (jComboBox1.getSelectedItem().equals("EL PROGRESO")) {
                     items = Funciones.sucurElpro;
-                }else{
-                    if(jComboBox1.getSelectedItem().equals("JALAPA")){
+                } else {
+                    if (jComboBox1.getSelectedItem().equals("JALAPA")) {
                         items = Funciones.sucurJala;
                     }
                 }
             }
-            if(pizzaselectedcobox.getItemCount()==0){
+            if (pizzaselectedcobox.getItemCount() == 0) {
                 rellenar(items);
-            }else{
+            } else {
                 pizzaselectedcobox.removeAllItems();
                 rellenar(items);
             }
         }
+        descriocionarea.setText("");
+        preciolabel.setText("");
+        pizzaselectedcoboxItemStateChanged(1);
     }//GEN-LAST:event_jComboBox1ItemStateChanged
-
-    private void pizzaselectedcoboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_pizzaselectedcoboxItemStateChanged
+    public void pizzaselectedcoboxItemStateChanged(int w){
         ArrayList<pizza> pizzas = new ArrayList<pizza>();
-        if(evt.getStateChange()==ItemEvent.SELECTED){
+        if(w==1){
             if(jComboBox1.getSelectedItem().equals("GUATEMALA")){
                 pizzas = Funciones.sucurGuate;
             }else{
@@ -257,29 +282,31 @@ public class VentanaPedidos extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_pizzaselectedcoboxItemStateChanged
-
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         x++;
         pedido pedidoo = new pedido(x);
         pedidoo.setPizza(pizzaselectedcobox.getSelectedItem().toString());
         pedidoo.setDescr(descriocionarea.getText());
         pedidoo.setSucur(jComboBox1.getSelectedItem().toString());
-        System.out.println(pedidoo.getNo());
-        if(listapedidos.getRowCount()==0){
-            String[] j = {"","",""};
+        if (listapedidos.getRowCount() == 0) {
+            String[] j = {"", "", ""};
             mod2.addRow(j);
             enviar(pedidoo);
-        }else{
+        } else {
             enviar(pedidoo);
-        }  
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void pizzaselectedcoboxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_pizzaselectedcoboxItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pizzaselectedcoboxItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea descriocionarea;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    protected javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
