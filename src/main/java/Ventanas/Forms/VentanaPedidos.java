@@ -1,16 +1,17 @@
 package Ventanas.Forms;
 
-import Funcionalidades.Funciones;
-import Funcionalidades.pizza;
+import Funcionalidades.*;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.HashSet;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaPedidos extends javax.swing.JFrame {
     String[] titulos2 = {"No.", "Pizza", "Descripción", "Sucursal"};
     DefaultTableModel mod2 = new DefaultTableModel(null, titulos2);
-    int x;
+    int x=0;
     public VentanaPedidos() {
         initComponents();
     }
@@ -22,6 +23,13 @@ public class VentanaPedidos extends javax.swing.JFrame {
         }
         DefaultComboBoxModel mo = new DefaultComboBoxModel(t);
         pizzaselectedcobox.setModel(mo);
+    }
+    public void enviar(pedido x){
+        if(x.getSucur().equals("")||x.getDescr().equals("")||x.getPizza().equals("")){
+            JOptionPane.showMessageDialog(null, "Por Favor Asegurarse de llenar todos los datos requeridos ;)");
+        }else{
+            Funciones.newPedido(x,listapedidos,mod2);                  
+        }
     }
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -92,6 +100,11 @@ public class VentanaPedidos extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jButton1.setText("ORDENAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel5.setText("PEDIDOS:");
@@ -245,6 +258,22 @@ public class VentanaPedidos extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_pizzaselectedcoboxItemStateChanged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        x++;
+        pedido pedidoo = new pedido(x);
+        pedidoo.setPizza(pizzaselectedcobox.getSelectedItem().toString());
+        pedidoo.setDescr(descriocionarea.getText());
+        pedidoo.setSucur(jComboBox1.getSelectedItem().toString());
+        
+        if(listapedidos.getRowCount()==0){
+            String[] j = {"","",""};
+            mod2.addRow(j);
+            enviar(pedidoo);
+        }else{
+            enviar(pedidoo);
+        }  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea descriocionarea;

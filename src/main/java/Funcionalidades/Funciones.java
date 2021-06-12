@@ -8,6 +8,7 @@ public class Funciones {
     public static ArrayList<pizza> sucurGuate = new ArrayList<pizza>();
     public static ArrayList<pizza> sucurElpro = new ArrayList<pizza>();
     public static ArrayList<pizza> sucurJala = new ArrayList<pizza>();
+    public static ArrayList<pedido> pedidos = new ArrayList<pedido>();
     
     public static void crear(pizza x,javax.swing.JTable t, javax.swing.table.DefaultTableModel m){
         if(x.getSucur().equals("GUATEMALA")){
@@ -41,10 +42,26 @@ public class Funciones {
             }
         }
     }
-        public static void limpiartabla(javax.swing.table.DefaultTableModel mo, javax.swing.JTable t){
+    public static void limpiartabla(javax.swing.table.DefaultTableModel mo, javax.swing.JTable t){
         int n = t.getRowCount();
         for(int x = n-1; x >= 0; x--){
             mo.removeRow(x);
         }
     }
+    public static void mostrarpe(javax.swing.JTable t, javax.swing.table.DefaultTableModel m, ArrayList<pedido> y){
+        limpiartabla(m,t);
+        t.setModel(m);
+        String[] agg = new String[4];
+        for(int x=0;x<y.size();x++){
+            agg[0]=String.valueOf(y.get(x).getNo());
+            agg[1]=y.get(x).getPizza();
+            agg[2]=y.get(x).getDescr();
+            agg[3]=y.get(x).getSucur();
+            m.addRow(agg);
+        }
+    }
+    public static void newPedido(pedido x,javax.swing.JTable t, javax.swing.table.DefaultTableModel m){
+        pedidos.add(x);
+        mostrarpe(t,m,pedidos);
+    }    
 }
