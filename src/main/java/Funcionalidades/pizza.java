@@ -19,7 +19,7 @@ public class pizza {
     }
 
     public void setPre(String pre) {
-        this.pre = pre;
+        this.pre = "Q "+pre;
     }
 
     public String getDesc() {
