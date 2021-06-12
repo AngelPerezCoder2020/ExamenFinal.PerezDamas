@@ -49,8 +49,8 @@ public class Funciones {
         }
     }
     public static void mostrarpe(javax.swing.JTable t, javax.swing.table.DefaultTableModel m, ArrayList<pedido> y){
-        limpiartabla(m,t);
         t.setModel(m);
+        limpiartabla(m,t);
         String[] agg = new String[4];
         for(int x=0;x<y.size();x++){
             agg[0]=String.valueOf(y.get(x).getNo());

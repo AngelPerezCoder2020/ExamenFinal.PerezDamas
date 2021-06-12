@@ -265,7 +265,7 @@ public class VentanaPedidos extends javax.swing.JFrame {
         pedidoo.setPizza(pizzaselectedcobox.getSelectedItem().toString());
         pedidoo.setDescr(descriocionarea.getText());
         pedidoo.setSucur(jComboBox1.getSelectedItem().toString());
-        
+        System.out.println(pedidoo.getNo());
         if(listapedidos.getRowCount()==0){
             String[] j = {"","",""};
             mod2.addRow(j);
