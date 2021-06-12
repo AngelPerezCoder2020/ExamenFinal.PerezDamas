@@ -214,6 +214,9 @@ public class VentadaAdministracion extends javax.swing.JFrame {
     }//GEN-LAST:event_preciopizzatxtActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        nombrepizzatxt.setText("");
+        preciopizzatxt.setText("");
+        descripcionpizzatxt.setText("");
         this.setVisible(false);
         VentanaPrincipal.ventanaprincipal.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
